@@ -8,6 +8,9 @@ A little anchor script for your boat. FiveM related
 * You will need to have pNotify installed on your server - https://forum.fivem.net/t/release-pnotify-in-game-js-notifications-using-noty/20659
 * If you want the sounds also you will need to download the pNotify i put inside here. 
 
+# Video
+* https://youtu.be/T1gxcIjOeQk
+
 
 # Install
 
