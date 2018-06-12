@@ -21,10 +21,11 @@ Citizen.CreateThread(function()
 	local ped = GetPlayerPed( -1 )
 	local vehicle = GetVehiclePedIsIn( ped, false )
 	local vehicleClass = GetVehicleClass(vehicle)
+	local model = GetDisplayNameFromVehicleModel(GetEntityModel(GetVehiclePedIsIn(GetPlayerPed(-1))))
 
 	if not IsEntityDead( ped ) then 
 		if IsPedSittingInAnyVehicle( ped )  then 
-			if vehicleClass == 14 then
+			if vehicleClass == 14 and (model ~= "SUBMERS" and model ~= "SEASHARK" and model ~= "SEASHARK2" and model ~= "SEASHARK3" and model ~= "SUBMERS2")  then
 				if IsControlPressed(2, 303) then
 				TriggerEvent("pNotify:SendNotification",{
 				text = "Boat anchored!",
