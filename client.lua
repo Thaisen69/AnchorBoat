@@ -14,12 +14,16 @@
  ]]
 
 local anchored = false
+local boat = nil
 Citizen.CreateThread(function()
 	while true do
 
 		Wait(0)
 		local ped = GetPlayerPed(-1)
-		if IsControlJustPressed(1, 182) and not IsPedInAnyVehicle(ped)  then
+		if IsPedInAnyBoat(ped) then
+		boat  = GetVehiclePedIsIn(ped, true)
+		end
+		if IsControlJustPressed(1, 182) and not IsPedInAnyVehicle(ped) and boat ~= nil then
 			local boat  = GetVehiclePedIsIn(ped, true)
 			if not anchored then
 				SetBoatAnchor(boat, true)
@@ -55,6 +59,9 @@ Citizen.CreateThread(function()
 				})
 			end
 			anchored = not anchored
+		end
+				if IsVehicleEngineOn(boat) then
+			anchored = false
 		end
 	end
 end)
