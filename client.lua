@@ -13,20 +13,16 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ]]
 
-
-
+local anchored = false
 Citizen.CreateThread(function()
-    while true do
-        Citizen.Wait(100)
-	local ped = GetPlayerPed( -1 )
-	local vehicle = GetVehiclePedIsIn( ped, false )
-	local vehicleClass = GetVehicleClass(vehicle)
-	local model = GetDisplayNameFromVehicleModel(GetEntityModel(GetVehiclePedIsIn(GetPlayerPed(-1))))
+	while true do
 
-	if not IsEntityDead( ped ) then 
-		if IsPedSittingInAnyVehicle( ped )  then 
-			if vehicleClass == 14 and (model ~= "SUBMERS" and model ~= "SEASHARK" and model ~= "SEASHARK2" and model ~= "SEASHARK3" and model ~= "SUBMERS2")  then
-				if IsControlPressed(2, 303) then
+		Wait(0)
+		local ped = GetPlayerPed(-1)
+		if IsControlJustPressed(1, 182) and not IsPedInAnyVehicle(ped)  then
+			local boat  = GetVehiclePedIsIn(ped, true)
+			if not anchored then
+				SetBoatAnchor(boat, true)
 				TriggerEvent("pNotify:SendNotification",{
 				text = "Boat anchored!",
 				type = "success",
@@ -41,25 +37,8 @@ Citizen.CreateThread(function()
 				conditions = {"docVisible"}  
 				}  
 				})
-				FreezeEntityPosition(vehicle ,true)
-				end 
-			end 
-		end 
-		end
-	end 
-end )
-
-Citizen.CreateThread(function()
-    while true do
-        Citizen.Wait(120)
-	local ped = GetPlayerPed( -1 )
-	local vehicle = GetVehiclePedIsIn( ped, false )
-	local vehicleClass = GetVehicleClass(vehicle)
-	
-	if not IsEntityDead( ped ) then 
-		if IsPedSittingInAnyVehicle( ped )  then 
-			if vehicleClass == 14 then 
-				if IsControlPressed(2, 246) then
+			else
+				SetBoatAnchor(boat, false)
 				TriggerEvent("pNotify:SendNotification",{
 				text = "Boat not anchored anymore",
 				type = "success",
@@ -74,12 +53,8 @@ Citizen.CreateThread(function()
 				conditions = {"docVisible"}  
 				}  
 				})
-				SetTimeout(4000, function()
-				FreezeEntityPosition(vehicle ,false)
-				end)
 			end
-		end 
+			anchored = not anchored
 		end
-	end 
 	end
-end )
+end)
