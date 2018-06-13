@@ -24,7 +24,6 @@ Citizen.CreateThread(function()
 		boat  = GetVehiclePedIsIn(ped, true)
 		end
 		if IsControlJustPressed(1, 182) and not IsPedInAnyVehicle(ped) and boat ~= nil then
-			local boat  = GetVehiclePedIsIn(ped, true)
 			if not anchored then
 				SetBoatAnchor(boat, true)
 				TriggerEvent("pNotify:SendNotification",{
