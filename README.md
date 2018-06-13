@@ -3,6 +3,8 @@ A little anchor script for your boat. FiveM related
 
 # Version
 * 1.0 Everything works as intended
+* 1.1 Can’t throw anchor when you are in a submarine or on jetski
+* 1.2 Changed the plan. Now you don't freeze the entity but using another more relastic native. Big Thanks to Jager_Bom
 
 # Requirements 
 * You will need to have pNotify installed on your server - https://forum.fivem.net/t/release-pnotify-in-game-js-notifications-using-noty/20659
