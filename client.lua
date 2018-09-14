@@ -23,9 +23,11 @@ Citizen.CreateThread(function()
 		if IsPedInAnyBoat(ped) then
 		boat  = GetVehiclePedIsIn(ped, true)
 		end
-		if IsControlJustPressed(1, 182) and not IsPedInAnyVehicle(ped) and boat ~= nil then
+		if IsControlJustPressed(1, 81) and not IsPedInAnyVehicle(ped) and boat ~= nil then
 			if not anchored then
 				SetBoatAnchor(boat, true)
+				TaskStartScenarioInPlace(ped, 'CODE_HUMAN_MEDIC_TEND_TO_DEAD', 0, true)
+				Citizen.Wait(10000)
 				TriggerEvent("pNotify:SendNotification",{
 				text = "Boat anchored!",
 				type = "success",
@@ -40,7 +42,10 @@ Citizen.CreateThread(function()
 				conditions = {"docVisible"}  
 				}  
 				})
+				ClearPedTasks(ped)
 			else
+				TaskStartScenarioInPlace(ped, 'CODE_HUMAN_MEDIC_TEND_TO_DEAD', 0, true)
+				Citizen.Wait(10000)
 				SetBoatAnchor(boat, false)
 				TriggerEvent("pNotify:SendNotification",{
 				text = "Boat not anchored anymore",
@@ -56,6 +61,7 @@ Citizen.CreateThread(function()
 				conditions = {"docVisible"}  
 				}  
 				})
+				ClearPedTasks(ped)
 			end
 			anchored = not anchored
 		end
